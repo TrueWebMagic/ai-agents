@@ -94,7 +94,7 @@ const AgentCreationPage = () => {
                         <div className="flex-1">
                             <h3 className="text-lg font-medium mb-4 text-gray-800">Workflow Preview</h3>
                             <div className="space-y-4">
-                                {JSON.parse(generatedWorkflow)["workflow_elements"].map((action, index: number) => (
+                                {JSON.parse(generatedWorkflow)["workflow_elements"].map((action: { title: string; action: string }, index: number) => (
                                     <div key={index} className='space-y-4'>
                                         <div className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition duration-200 flex justify-between items-center">
                                             <span>{action["title"]}</span>
