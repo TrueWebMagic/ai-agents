@@ -1,25 +1,20 @@
-// import { runAgent } from '@/app/utils/runAgent';
-// import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-// export async function POST(req: NextRequest) {
-//     const body = await req.json();
+// Define the response for a POST request
+export async function POST(request: Request) {
+    try {
+        const body = await request.json();
 
-//     await runAgent("59")
+        // Add your logic here
+        const result = { message: "Agent executed successfully", body };
 
-//     console.log('Received data:', body);
+        return NextResponse.json(result, { status: 200 });
+    } catch (error) {
+        return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
+    }
+}
 
-//     return NextResponse.json({ success: true });
-// }
-
-import { NextApiRequest, NextApiResponse } from 'next';
-
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
-    // Handle the request and generate a response
-    // const data = await fetch('https://example.com/api/data');
-    // const response = await data.json();
-
-    res.status(200).json({ success: true });
+// Define the response for a GET request (optional, if needed)
+export async function GET() {
+    return NextResponse.json({ message: "This is a GET response" });
 }
