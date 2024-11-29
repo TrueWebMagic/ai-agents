@@ -1,9 +1,11 @@
+import { NextResponse } from 'next/server';
+
 export async function GET(request: Request) {
-    console.log(request)
-    return new Response('hi')
+    console.log(request);
+    return NextResponse.json({ message: 'hi' });
 }
 
 export async function POST(request: Request) {
-    console.log(request)
-    return new Response('hi')
+    console.log(request);
+    return NextResponse.json({ message: 'hi' });
 }

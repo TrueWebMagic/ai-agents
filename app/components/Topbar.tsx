@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import React, { useState } from 'react'
 
 const Topbar = () => {
@@ -7,7 +8,7 @@ const Topbar = () => {
 
     return (
         <header className="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0">
@@ -40,14 +41,14 @@ const Topbar = () => {
 
                     {/* Mobile menu button */}
                     <div className="md:hidden flex items-center">
-                        <button 
+                        <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="p-2 rounded-lg hover:bg-gray-100 transition"
                         >
-                            <svg 
-                                className="w-6 h-6 text-gray-600" 
-                                fill="none" 
-                                stroke="currentColor" 
+                            <svg
+                                className="w-6 h-6 text-gray-600"
+                                fill="none"
+                                stroke="currentColor"
                                 viewBox="0 0 24 24"
                             >
                                 {isMenuOpen ? (
