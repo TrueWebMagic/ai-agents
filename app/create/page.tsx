@@ -174,7 +174,7 @@ const AgentCreationPage = () => {
                         <button onClick={deployAgent} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition duration-200 font-medium">
                             Deploy Agent
                         </button>
-                        <button onClick={() => { console.log("click"); runAgent("59") }} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition duration-200 font-medium">
+                        <button onClick={() => { console.log("clicked"); runAgent("59") }} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition duration-200 font-medium">
                             Run
                         </button>
                         <button className="text-gray-700 hover:bg-gray-50 border border-gray-200 px-8 py-3 rounded-lg font-medium transition duration-200">
