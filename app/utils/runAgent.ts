@@ -7,7 +7,6 @@ import { llm } from "../actions/llm";
 import { logAgent } from "../actions/logAgent";
 
 export const runAgent = async (agent_id: string) => {
-    return
     const stepsAndResults: { [key: string]: string } = {}
     const workflow_arguments: string[] = []
     const agent = await getAgentForRun(agent_id)
