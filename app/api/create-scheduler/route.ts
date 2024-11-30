@@ -18,9 +18,6 @@ export async function POST(request: Request) {
 
         const parent = `projects/${projectId}/locations/${location}`;
 
-        console.log(client)
-        console.log(parent)
-
         const job: protos.google.cloud.scheduler.v1.IJob = {
             name: `${parent}/jobs/${jobName}`,
             schedule,
@@ -35,12 +32,10 @@ export async function POST(request: Request) {
             },
         };
 
-        console.log(job)
+        const createdJob = await client.createJob({ parent, job });
 
-        // const [createdJob] = await client.createJob({ parent, job });
-
-        // return NextResponse.json({ success: true, job: createdJob });
-        return NextResponse.json({ success: true });
+        return NextResponse.json({ success: true, job: createdJob });
+        // return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Error creating Cloud Scheduler job:', error);
         return NextResponse.json({ error: 'Failed to create job' }, { status: 500 });
