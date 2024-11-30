@@ -10,7 +10,7 @@ export async function POST(request: Request) {
         }
 
         const client = new CloudSchedulerClient({
-            keyFilename: '../../../secret.json',
+            keyFilename: '../../../../secret.json',
         });
 
         const projectId = process.env.GOOGLE_PROJECT_ID!;
