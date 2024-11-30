@@ -18,6 +18,7 @@ export async function POST(request: Request) {
 
         const parent = `projects/${projectId}/locations/${location}`;
 
+        console.log(client)
         console.log(parent)
 
         // const job: protos.google.cloud.scheduler.v1.IJob = {
