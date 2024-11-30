@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import { generateAgent } from '../actions/generateAgent';
-import { runAgent } from '../utils/runAgent';
 import { deployAgent } from '../actions/deployAgent';
 
 const AgentCreationPage = () => {
