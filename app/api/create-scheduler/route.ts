@@ -13,28 +13,31 @@ export async function POST(request: Request) {
             keyFilename: 'secret.json',
         });
 
-        const projectId = process.env.GOOGLE_PROJECT_ID!;
-        const location = process.env.GOOGLE_LOCATION!;
+        console.log(client)
 
-        const parent = `projects/${projectId}/locations/${location}`;
+        // const projectId = process.env.GOOGLE_PROJECT_ID!;
+        // const location = process.env.GOOGLE_LOCATION!;
 
-        const job: protos.google.cloud.scheduler.v1.IJob = {
-            name: `${parent}/jobs/${jobName}`,
-            schedule,
-            timeZone: 'UTC',
-            httpTarget: {
-                uri: url,
-                httpMethod: protos.google.cloud.scheduler.v1.HttpMethod.POST,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: Buffer.from(JSON.stringify({ agentId: agentId })).toString('base64'),
-            },
-        };
+        // const parent = `projects/${projectId}/locations/${location}`;
 
-        const [createdJob] = await client.createJob({ parent, job });
+        // const job: protos.google.cloud.scheduler.v1.IJob = {
+        //     name: `${parent}/jobs/${jobName}`,
+        //     schedule,
+        //     timeZone: 'UTC',
+        //     httpTarget: {
+        //         uri: url,
+        //         httpMethod: protos.google.cloud.scheduler.v1.HttpMethod.POST,
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: Buffer.from(JSON.stringify({ agentId: agentId })).toString('base64'),
+        //     },
+        // };
 
-        return NextResponse.json({ success: true, job: createdJob });
+        // const [createdJob] = await client.createJob({ parent, job });
+
+        // return NextResponse.json({ success: true, job: createdJob });
+        return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Error creating Cloud Scheduler job:', error);
         return NextResponse.json({ error: 'Failed to create job' }, { status: 500 });
