@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { CloudSchedulerClient } from '@google-cloud/scheduler';
+import { CloudSchedulerClient, protos } from '@google-cloud/scheduler';
 
 export async function POST(request: Request) {
     try {
@@ -21,19 +21,21 @@ export async function POST(request: Request) {
         console.log(client)
         console.log(parent)
 
-        // const job: protos.google.cloud.scheduler.v1.IJob = {
-        //     name: `${parent}/jobs/${jobName}`,
-        //     schedule,
-        //     timeZone: 'UTC',
-        //     httpTarget: {
-        //         uri: url,
-        //         httpMethod: protos.google.cloud.scheduler.v1.HttpMethod.POST,
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: Buffer.from(JSON.stringify({ agentId: agentId })).toString('base64'),
-        //     },
-        // };
+        const job: protos.google.cloud.scheduler.v1.IJob = {
+            name: `${parent}/jobs/${jobName}`,
+            schedule,
+            timeZone: 'UTC',
+            httpTarget: {
+                uri: url,
+                httpMethod: protos.google.cloud.scheduler.v1.HttpMethod.POST,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: Buffer.from(JSON.stringify({ agentId: agentId })).toString('base64'),
+            },
+        };
+
+        console.log(job)
 
         // const [createdJob] = await client.createJob({ parent, job });
 
