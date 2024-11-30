@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { CloudSchedulerClient, protos } from '@google-cloud/scheduler';
+import { CloudSchedulerClient } from '@google-cloud/scheduler';
 
 export async function POST(request: Request) {
     try {
