@@ -26,11 +26,11 @@ export async function generateAgent(prompt: string): Promise<string> {
             },
             {
                 role: "user",
-                content: "User's answer: \"Every day morning get the latest piece of information related to Elon Musk in one short and concise sentence and sent it to Slack channel\"\n\nAPI list: [\"Gmail\", \"Slack\", \"Google Calendar\", \"Perplexity\", \"Runway\"]"
+                content: "User's answer: \"Every monday morning get the latest piece of information related to Elon Musk in one short and concise sentence and sent it to Slack channel\"\n\nAPI list: [\"Gmail\", \"Slack\", \"Google Calendar\", \"Perplexity\", \"Runway\"]"
             },
             {
                 role: "assistant",
-                content: "{\n  \"workflow_elements\": [\n    {\n      \"title\": \"Get latest info about Elon Musk\",\n      \"action\": \"Perplexity\"\n    },\n    {\n      \"title\": \"Send message on Slack\",\n      \"action\": \"Slack\"\n    }],\n  \"api_used\": [\"Perplexity\", \"Slack\"],\n  \"frequency\": [\"Daily 7:00AM\"]\n}"
+                content: "{\n  \"workflow_elements\": [\n    {\n      \"title\": \"Get latest info about Elon Musk\",\n      \"action\": \"Perplexity\"\n    },\n    {\n      \"title\": \"Send message on Slack\",\n      \"action\": \"Slack\"\n    }],\n  \"api_used\": [\"Perplexity\", \"Slack\"],\n  \"frequency\": [\"Mondays 7:00AM\"]\n}"
             },
             {
                 role: "user",

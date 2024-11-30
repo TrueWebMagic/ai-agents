@@ -8,6 +8,7 @@ import { deployAgent } from '../actions/deployAgent';
 const AgentCreationPage = () => {
     const [generatedWorkflow, setGeneratedWorkflow] = useState<string>("")
     const [isGenerating, setIsGenerating] = useState(false)
+    const [isDeploying, setIsDeploying] = useState(false)
     const [agentPrompt, setAgentPrompt] = useState("")
 
     const handleGenerate = async (formData: FormData) => {
@@ -30,6 +31,18 @@ const AgentCreationPage = () => {
         }
         setIsGenerating(false)
     }
+
+    const handleDeploy = async () => {
+        setIsDeploying(true);
+
+        try {
+            await deployAgent(generatedWorkflow, agentPrompt);
+        } catch (error) {
+            console.error("Error deploying agent:", error);
+        } finally {
+            setIsDeploying(false);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
@@ -152,12 +165,12 @@ const AgentCreationPage = () => {
 
                     {/* Action Buttons */}
                     {generatedWorkflow && <div className="flex gap-6 justify-center pt-8">
-                        <button onClick={() => deployAgent(generatedWorkflow, agentPrompt)} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg">
-                            Deploy Agent
+                        <button onClick={() => { handleDeploy() }} disabled={isDeploying} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg disabled:pointer-events-none disabled:opacity-70">
+                            {isDeploying == false ? "Deploy Agent" : 'Deploying...'}
                         </button>
-                        <button onClick={() => runAgent("59")} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg">
+                        {/* <button onClick={() => { console.log("Y"); runAgent("59") }} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg">
                             Run
-                        </button>
+                        </button> */}
                         <button className="text-gray-700 hover:bg-gray-50 border border-gray-200 px-10 py-4 rounded-xl font-semibold transition duration-200">
                             Save Draft
                         </button>

@@ -9,5 +9,7 @@ export const logAgent = async (id: string, steps_results: { [key: string]: strin
         .from('agent_executions')
         .insert({ "agent_id": id, "steps_results": steps_results, "arguments": workflow_arguments })
 
-    console.log(error)
+    if (error) {
+        console.log(error)
+    }
 }

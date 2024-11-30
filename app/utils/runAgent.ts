@@ -1,3 +1,5 @@
+'use server'
+
 import { getPerplexityResponse } from "../actions/actions-api/perplexity";
 import { sendMessageToSlack } from "../actions/actions-api/slack";
 import { generateAPIMessageContent } from "../actions/generateAPIMessageContent";
@@ -10,7 +12,6 @@ export const runAgent = async (agent_id: string) => {
     const stepsAndResults: { [key: string]: string } = {}
     const workflow_arguments: string[] = []
     const agent = await getAgentForRun(agent_id)
-    // const workflow = agent ? agent.workflow : JSON.parse(generatedWorkflow)
     const workflow = agent.workflow
     const agentPrompt = agent.prompt
 
@@ -33,5 +34,6 @@ export const runAgent = async (agent_id: string) => {
             stepsAndResults[`Step ${i + 1} (${workflow[i]["action"]}): ${workflow[i]["title"]}`] = result == true ? "Message sent" : "Error sending message"
         }
     }
+
     await logAgent(agent_id, { ...stepsAndResults }, [...workflow_arguments])
 };
