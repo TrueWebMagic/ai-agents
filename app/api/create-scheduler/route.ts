@@ -20,9 +20,9 @@ export async function POST(request: Request) {
     try {
         // await loadCredentials();
 
-        const { jobName, schedule, url, agentId } = await request.json();
+        const { jobName, schedule, agentId } = await request.json();
 
-        if (!jobName || !schedule || !url || !agentId) {
+        if (!jobName || !schedule || !agentId) {
             return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
         }
 
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
             schedule,
             timeZone: 'UTC',
             httpTarget: {
-                uri: url,
+                uri: "https://ai-agents-platform-1025490972213.us-central1.run.app/api/runAgent",
                 httpMethod: protos.google.cloud.scheduler.v1.HttpMethod.POST,
                 headers: {
                     'Content-Type': 'application/json',

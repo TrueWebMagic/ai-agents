@@ -17,7 +17,7 @@ export const deployAgent = async (generatedWorkflow: string, agentPrompt: string
         frequencies.push(frequencies_list[i]);
     }
 
-    await saveAgent(
+    const agentId = await saveAgent(
         agentName,
         "active",
         parsedWorkflow["api_used"],
@@ -27,32 +27,30 @@ export const deployAgent = async (generatedWorkflow: string, agentPrompt: string
     )
 
     for (let i = 0; i < frequencies.length; i++) {
-        // try {
-        //     const response = await axios.post('/api/create-scheduler', {
-        //         "jobName": "my-first-job",
-        //         "schedule": "*/5 * * * *",
-        //         "url": "https://your-endpoint.com/api/trigger-job"
-        //     }, {
-        //         // headers: {
-        //         //     'Authorization': `Bearer ${apiKey}`,
-        //         //     'Content-Type': 'application/json'
-        //         // }
-        //     });
+        try {
+            const res = await fetch('/api/create-scheduler', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    jobName: `${agentName} - ${frequencies[i]}`,
+                    schedule: frequencies[i],
+                    agentId: agentId,
+                }),
+            });
 
-        //     return response.data.choices[0].message.content;
-        // } catch (error: unknown) {
-        //     console.error('Error calling Perplexity API:', error);
-        //     if (axios.isAxiosError(error)) {
-        //         const axiosError = error as AxiosError;
-        //         alert("Error when calling Perplexity API. Details: " + axiosError.message)
-        //         return 'Error'
-        //     } else if (error instanceof Error) {
-        //         return `Error: ${error.message}`;
-        //     } else {
-        //         return 'An unknown error occurred.';
-        //     }
+            const data = await res.json();
 
-        // }
+            if (res.ok) {
+                console.log(`Job created successfully: ${JSON.stringify(data.job)}`);
+            } else {
+                console.log(`Error: ${data.error}`);
+            }
+        } catch (error) {
+            console.error('Request failed:', error);
+            console.log('Request failed. Please try again.');
+        }
     }
 
     redirect('/agents')
