@@ -13,12 +13,12 @@ export async function POST(request: Request) {
             keyFilename: 'secret.json',
         });
 
-        console.log(client)
+        const projectId = process.env.GOOGLE_PROJECT_ID!;
+        const location = process.env.GOOGLE_LOCATION!;
 
-        // const projectId = process.env.GOOGLE_PROJECT_ID!;
-        // const location = process.env.GOOGLE_LOCATION!;
+        const parent = `projects/${projectId}/locations/${location}`;
 
-        // const parent = `projects/${projectId}/locations/${location}`;
+        console.log(parent)
 
         // const job: protos.google.cloud.scheduler.v1.IJob = {
         //     name: `${parent}/jobs/${jobName}`,
