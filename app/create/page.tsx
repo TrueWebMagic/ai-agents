@@ -2,10 +2,8 @@
 
 import React, { useState } from 'react'
 import { generateAgent } from '../actions/generateAgent';
-import { llm } from '../actions/llm';
-import { saveAgent } from '../actions/saveAgent';
-import { redirect } from 'next/navigation';
 import { runAgent } from '../utils/runAgent';
+import { deployAgent } from '../actions/deployAgent';
 
 const AgentCreationPage = () => {
     const [generatedWorkflow, setGeneratedWorkflow] = useState<string>("")
@@ -32,22 +30,6 @@ const AgentCreationPage = () => {
         }
         setIsGenerating(false)
     }
-
-    const deployAgent = async () => {
-        const parsedWorkflow = JSON.parse(generatedWorkflow);
-
-        const agentName = await llm(`Create a very short and concise name for an AI agent that does this: "${agentPrompt}". Separate words with spaces. Make it friendly. Don't add quotes or backticks.`, 'gpt-4o')
-        await saveAgent(
-            agentName,
-            "active",
-            parsedWorkflow["api_used"],
-            parsedWorkflow["workflow_elements"],
-            parsedWorkflow["frequency"],
-            agentPrompt
-        )
-
-        redirect('/agents')
-    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
@@ -170,10 +152,10 @@ const AgentCreationPage = () => {
 
                     {/* Action Buttons */}
                     {generatedWorkflow && <div className="flex gap-6 justify-center pt-8">
-                        <button onClick={deployAgent} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg">
+                        <button onClick={() => deployAgent(generatedWorkflow, agentPrompt)} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg">
                             Deploy Agent
                         </button>
-                        <button onClick={() => { console.log("clicked"); runAgent("59") }} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg">
+                        <button onClick={() => runAgent("59")} className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-xl transition duration-200 font-semibold shadow-md hover:shadow-lg">
                             Run
                         </button>
                         <button className="text-gray-700 hover:bg-gray-50 border border-gray-200 px-10 py-4 rounded-xl font-semibold transition duration-200">
