@@ -35,9 +35,8 @@ export async function POST(request: Request) {
         const createdJob = await client.createJob({ parent, job });
 
         return NextResponse.json({ success: true, job: createdJob });
-        // return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Error creating Cloud Scheduler job:', error);
-        return NextResponse.json({ error: 'Failed to create job' }, { status: 500 });
+        return NextResponse.json({ error: `Failed to create job: ${error}` }, { status: 500 });
     }
 }
